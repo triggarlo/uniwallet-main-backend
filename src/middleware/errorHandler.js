@@ -21,9 +21,7 @@ const errorHandler = (err, req, res, next) => {
     message = `Invalid ${err.path}`;
   }
 
-  if (process.env.NODE_ENV === 'development') {
-    console.error('❌', err);
-  }
+ console.error('❌', err.message, err.stack);
 
   res.status(statusCode).json({ success: false, message });
 };
