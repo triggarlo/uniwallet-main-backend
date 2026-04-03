@@ -101,7 +101,7 @@ router.post('/login', async (req, res, next) => {
       return res.status(401).json({ success: false, message: 'Incorrect email or password.' });
     }
 
-    iif (!user.isVerified) {
+    if (!user.isVerified) {
   // Auto-verify for now — remove this when email is working
   user.isVerified = true;
   await user.save();
