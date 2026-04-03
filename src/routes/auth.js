@@ -101,24 +101,11 @@ router.post('/login', async (req, res, next) => {
       return res.status(401).json({ success: false, message: 'Incorrect email or password.' });
     }
 
-    if (!user.isVerified) {
-      // Resend verification OTP
-      const otp = user.generateOTP('verify');
-      await user.save();
-      try {
-        await sendOTP(email, user.name.split(' ')[0], otp, 'verify');
-      } catch {
-        if (process.env.NODE_ENV === 'development') {
-          console.log(`[DEV] Verification OTP for ${email}: ${otp}`);
-        }
-      }
-      return res.status(403).json({
-        success: false,
-        message: 'Please verify your email first. A new code has been sent.',
-        requiresVerification: true,
-        email,
-      });
-    }
+    iif (!user.isVerified) {
+  // Auto-verify for now — remove this when email is working
+  user.isVerified = true;
+  await user.save();
+}
 
     const accessToken  = signAccessToken(user._id);
     const refreshToken = signRefreshToken(user._id);
