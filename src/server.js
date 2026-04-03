@@ -10,7 +10,7 @@ const errorHandler   = require('./middleware/errorHandler');
 const authRoutes     = require('./routes/auth');
 const userRoutes     = require('./routes/users');
 const txRoutes       = require('./routes/transactions');
-const { router: goalRoutes } = require('./routes/goals');
+const goalRoutes = require('./routes/goals');
 const notifRoutes    = require('./routes/notifications');
 
 const app = express();

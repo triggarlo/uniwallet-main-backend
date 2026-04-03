@@ -72,4 +72,5 @@ router.post('/sync', async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
-module.exports = { router, syncGoals };
+module.exports = router;
+router.syncGoals = syncGoals;
